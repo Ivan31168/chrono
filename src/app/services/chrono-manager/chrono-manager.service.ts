@@ -1,5 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 enum DIRECTION  {UP= 1, DOWN= -1}
 enum STATUS {RUNNING = "RUNNING",STOPPED = "STOPPED", PAUSED = "PAUSED"}
@@ -11,13 +10,11 @@ type State = {
 }
 const initialState:State = {status:STATUS.STOPPED, direction: DIRECTION.UP, currentTime:0}
 
-@Component({
-  selector: 'app-root',
-  imports: [],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+@Injectable({
+  providedIn: 'root'
 })
-export class AppComponent {
+export class ChronoManagerService {
+
   title = 'crono';
   state = signal(initialState);
   time = signal(0);
@@ -29,9 +26,7 @@ export class AppComponent {
     })
   }
 
-  ngOnInit(){
-    
-  }
+
 
   private cambiarEstado(state:State){
     clearInterval(this.interval);
